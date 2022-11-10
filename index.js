@@ -84,6 +84,12 @@ const run = async () => {
             const result = await cursor.toArray()
             res.send(result)
         })
+        app.get('/blogs/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: ObjectId(id) }
+            const result = await blogCollection.findOne(query)
+            res.send(result)
+        })
     }
     finally {
 
