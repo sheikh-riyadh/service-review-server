@@ -65,7 +65,13 @@ const run = async () => {
             res.send(result)
         })
 
-        app.put('/delete/:id', async (req, res) => {
+        app.post('/add-service', async (req, res) => {
+            const service = req.body;
+            const result = await serviceCollection.insertOne(service);
+            res.send(result)
+        })
+
+        app.delete('/delete/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const result = await reviewCollection.deleteOne(query)
