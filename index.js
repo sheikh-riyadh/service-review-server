@@ -19,6 +19,7 @@ const run = async () => {
     try {
         const serviceCollection = client.db('photographyReview').collection('services')
         const reviewCollection = client.db('photographyReview').collection('reviews')
+        const blogCollection = client.db('photographyReview').collection('blogs')
 
         /* Get data from mongodb */
         app.get('/limit-services', async (req, res) => {
@@ -75,6 +76,12 @@ const run = async () => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const result = await reviewCollection.deleteOne(query)
+            res.send(result)
+        })
+        app.get('/blogs', async (req, res) => {
+            const query = {}
+            const cursor = blogCollection.find(query)
+            const result = await cursor.toArray()
             res.send(result)
         })
     }
